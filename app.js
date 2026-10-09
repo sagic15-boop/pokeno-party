@@ -4,11 +4,13 @@
 
 /* ▼▼▼ הדבק כאן את ההגדרות של Firebase שלך (Project Settings) ▼▼▼ */
 const firebaseConfig = {
-  apiKey: "PASTE_API_KEY",
-  authDomain: "PASTE.firebaseapp.com",
-  databaseURL: "https://PASTE-default-rtdb.firebaseio.com",
-  projectId: "PASTE_PROJECT_ID",
-  appId: "PASTE_APP_ID",
+  apiKey: "AIzaSyDAgdp4yjmrnHJRVNwZQKrPGlylL5eRh8I",
+  authDomain: "pokeno-party.firebaseapp.com",
+  databaseURL: "https://pokeno-party-default-rtdb.firebaseio.com",
+  projectId: "pokeno-party",
+  storageBucket: "pokeno-party.firebasestorage.app",
+  messagingSenderId: "987116014340",
+  appId: "1:987116014340:web:6754d230995dc6d0a51e51"
 };
 /* ▲▲▲ עד כאן — אל תשנה שום דבר אחר ▲▲▲ */
 
