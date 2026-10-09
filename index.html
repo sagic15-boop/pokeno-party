@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>פוקינו מסיבה 🎉</title>
+  <meta name="theme-color" content="#7c3aed" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Rubik:wght@400;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="wrap">
+
+    <div class="brand">
+      <div class="logo">🎊 🎁 🃏</div>
+      <h1>פוקינו מסיבה</h1>
+      <p>בינגו קלפים · זכית = בחר או תגנוב מתנה</p>
+    </div>
+
+    <!-- טעינה -->
+    <section id="screen-loading" class="card" style="text-align:center"><p>מתחבר…</p></section>
+
+    <!-- בית -->
+    <section id="screen-home" class="hidden">
+      <div class="card">
+        <h2>פתיחת משחק חדש</h2>
+        <p class="subtle">אתה המנהל: פותח חדר, משתף QR/לינק, ומתחיל כשכולם בפנים.</p>
+        <button id="btnCreate" class="btn btn-gold">🎲 פתח חדר חדש</button>
+      </div>
+      <div class="card">
+        <h2>הצטרפות לחדר קיים</h2>
+        <label for="joinCode">קוד חדר</label>
+        <input id="joinCode" type="text" inputmode="latin" autocomplete="off" placeholder="לדוגמה: K7P2" maxlength="6" />
+        <button id="btnGoJoin" class="btn btn-ghost">הצטרף</button>
+      </div>
+    </section>
+
+    <!-- שם -->
+    <section id="screen-name" class="hidden">
+      <div class="card">
+        <h2>איך קוראים לך?</h2>
+        <p class="subtle">השם יופיע לכולם בחדר.</p>
+        <input id="nameInput" type="text" autocomplete="off" placeholder="השם שלך" maxlength="18" />
+        <button id="btnJoinRoom" class="btn btn-gold">כניסה למשחק</button>
+        <p id="nameErr" class="err hidden"></p>
+      </div>
+    </section>
+
+    <!-- לובי -->
+    <section id="screen-lobby" class="hidden">
+      <div id="shareCard" class="card share hidden">
+        <h2>הזמן את החבר'ה</h2>
+        <div class="big-code" id="lobbyCode">----</div>
+        <div class="qr" id="qrBox"></div>
+        <div class="code-box"><code id="shareLink">…</code><button id="btnCopy" class="btn btn-ghost btn-sm">העתק</button></div>
+      </div>
+
+      <div class="card">
+        <div class="board-head"><h2 style="margin:0">הלובי</h2><span class="count-pill">👥 <span id="playerCount">0</span></span></div>
+        <ul id="playersList" class="players"></ul>
+      </div>
+
+      <div id="countdownCard" class="card hidden">
+        <div class="countdown" id="countdown"><div class="time" id="cdTime">00:00</div><div class="label">עד תחילת המשחק</div></div>
+      </div>
+
+      <div id="adminPanel" class="card hidden">
+        <h2>שליטת מנהל</h2>
+        <label for="startTime">שעת התחלה (לא חובה)</label>
+        <div class="row" style="align-items:center">
+          <input id="startTime" type="time" />
+          <label class="subtle" style="flex:0 0 auto;display:flex;align-items:center;gap:6px;margin:0;cursor:pointer"><input id="autoStart" type="checkbox" style="width:auto" /> אוטו׳</label>
+        </div>
+        <label for="endTime" style="margin-top:12px">שעת סיום (לא חובה)</label>
+        <input id="endTime" type="time" />
+        <button id="btnSetTimes" class="btn btn-ghost">💾 שמור שעות</button>
+        <button id="btnStart" class="btn btn-gold">🚀 התחל משחק עכשיו</button>
+      </div>
+
+      <div id="waitCard" class="card hidden" style="text-align:center">
+        <p>⏳ ממתינים שהמנהל יתחיל…</p>
+        <p class="subtle">כשהמנהל ילחץ "התחל", הלוח שלך ייפתח אוטומטית.</p>
+      </div>
+    </section>
+
+    <!-- משחק -->
+    <section id="screen-game" class="hidden">
+      <div id="endCountCard" class="card hidden">
+        <div class="countdown" id="endCountdown"><div class="time" id="endTimeTxt">00:00</div><div class="label">עד סיום המשחק</div></div>
+      </div>
+      <div class="card">
+        <div class="board-head"><h2 style="margin:0">הלוח שלך</h2><span class="subtle">סמן קלפים · קו = זכייה</span></div>
+        <div id="board" class="board"></div>
+      </div>
+      <div class="card winners-bar">
+        <h3>🏆 זוכים</h3>
+        <ul id="winnersList" class="winners"><li class="empty subtle" style="background:none;border:none;list-style:none">עוד אין זוכים — בהצלחה!</li></ul>
+      </div>
+      <div id="adminGamePanel" class="card hidden">
+        <div class="row"><button id="btnNewRound" class="btn btn-ghost btn-sm" style="margin-top:0">🔄 סבב חדש</button><button id="btnBackLobby" class="btn btn-ghost btn-sm" style="margin-top:0">↩︎ חזרה ללובי</button></div>
+      </div>
+    </section>
+
+    <div class="spacer"></div>
+    <p class="footnote">פוקינו מסיבה · מופעל ב-Firebase</p>
+  </div>
+
+  <!-- מודאל זכייה / המתנה (תוכן דינמי) -->
+  <div id="winOverlay" class="overlay hidden"><div class="win-modal" id="winModalBody"></div></div>
+
+  <div id="banner" class="banner hidden"></div>
+  <div id="toast" class="toast hidden"></div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/canvas-confetti/1.9.3/confetti.browser.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+  <script type="module" src="app.js"></script>
+</body>
+</html>
